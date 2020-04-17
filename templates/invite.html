@@ -1,0 +1,70 @@
+<!-- ------------------------------------------------->
+ <!-- Author: {Sayantan Biswas}
+ Maintainer: {Sayantan Biswas}
+ Email: {sayantanbiswas1002@gmail.com} -->
+<!-- ------------------------------------------------->
+
+{% extends "bootstrap/base.html" %}
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Task Organizer</title>
+
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<!-- {% block content %} -->
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('index') }}">Calendar Task</a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          <!-- <li><a href="{{ url_for('signup') }}">Sign Up</a></li> -->
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+ <div class="login">
+	<h1>Add Task and Invites</h1>
+
+    <form action="{{ url_for('add_event')}}"method="post">
+      <input type="text" name="summary" placeholder="Summary" required="required"/>
+      <input type="date" name="date" placeholder="Date" required="required"/>
+      <input type="time" name="start" placeholder="Start Time" required="required" />
+      <input type="time" name="end" placeholder="End Time" required="required" />
+      <!-- <input type="number" name="end" placeholder="No of invitees" required="required" /> -->
+		  <input type="email" name="invite1" placeholder="1st Invite" required="required" />
+      <input type="email" name="invite2" placeholder="2nd Invite" value="NA"/>
+      <input type="email" name="invite3" placeholder="3rd Invite" value="NA"/>
+      <input type="email" name="invite4" placeholder="4th Invite" value="NA"/>
+      <input type="email" name="invite5" placeholder="5th Invite" value="NA"/>
+      <input type="text" name="description" placeholder="Description"/>
+      <input type="location" name="location" placeholder="Location"/>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Add Event</button>
+    </form>
+
+   <br>
+   {{ result_text }}
+
+ </div>
+</body>
+{% endblock %}
+</html>

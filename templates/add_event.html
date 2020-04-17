@@ -1,0 +1,43 @@
+<!-- ------------------------------------------------->
+ <!-- Author: {Sayantan Biswas}
+ Maintainer: {Sayantan Biswas}
+ Email: {sayantanbiswas1002@gmail.com} -->
+<!-- ------------------------------------------------->
+
+{% extends 'base.html' %}
+{% block title %}
+  Invites & Invitees
+{% endblock %}
+
+{% block head %}
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{% endblock %}
+
+{% block page_body %}
+  <div class="login">
+  <h1>Add Task and Invites</h1>
+     <form action="{{ url_for('add_event')}}" method="post">
+       <input type="text" name="summary" placeholder="Summary" />
+       <input type="date" name="date" placeholder="Date" required="required"/>
+       <input type="time" name="start" placeholder="Start Time" required="required" />
+       <input type="time" name="end" placeholder="End Time" required="required" />
+       <!-- <input type="number" name="end" placeholder="No of invitees" required="required" /> -->
+       <input type="email" name="invite1" id="invite1" placeholder="1st Invite" required="required" />
+       <input type="text" name="invite2" id="invite2" placeholder="2nd Invite" />
+       <input type="text" name="invite3" id="invite3" placeholder="3rd Invite" />
+       <input type="text" name="invite4" id="invite4" placeholder="4th Invite" />
+       <input type="text" name="invite5" id="invite5" placeholder="5th Invite" />
+       <input type="text" name="description" placeholder="Description"/>
+       <input type="location" name="location" placeholder="Location"/><br><br>
+       <button type="submit" class="btn btn-primary btn-block btn-large">Add Event</button>
+     </form>
+     <br>
+     <p>{{ result_text }}</p>
+  </div>
+{% endblock %}

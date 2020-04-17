@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+  History
+{% endblock %}
+
+{% block page_body %}
+  <!-- <div class="row"> -->
+    <br><br><br><br><br>
+      <h3>Invite History</h3>
+      {% for table in tables %}
+            {{ titles[loop.index] }}
+            {{ table|safe }}
+      {% endfor %}
+
+    <!-- </div> -->
+
+{% endblock %}

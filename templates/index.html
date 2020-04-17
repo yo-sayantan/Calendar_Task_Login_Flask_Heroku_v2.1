@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}
+  Home
+{% endblock %}
+
+{% block head %}
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+{% endblock %}
+
+
+{% block page_body %}
+
+<br><br><br><br><br><br>
+  <!-- <div class="login"> -->
+
+    <!-- button1 -->
+
+
+    <div class="wrapper">
+        <div>
+        <h1 class="head"><ul>Task Organizer</ul></h1>
+        <p id="logintext">Organise your tasks </p>
+        {% if is_logged_in() %}
+            <a href="{{url_for('simplelogin.logout')}}"><button class="button2" type="submit">Logout</button></a>
+        {% else %}
+            <a href="{{url_for('simplelogin.login')}}"><button class="button2" type="submit">Login</button></a>
+        {% endif %}
+
+    <!--button2-->
+        <!-- <p id="invitetext">Invite your friends and family </p>
+        <div>
+           <button class="button2" type="button">Share</button>
+        </div> -->
+        </div>
+      </div>
+{% endblock %}

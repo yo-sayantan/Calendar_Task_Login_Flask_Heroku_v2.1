@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}
+  History
+{% endblock %}
+
+{% block head %}
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/favicon.ico') }}"/>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/animate.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/select2.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/perfect-scrollbar.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block page_body %}
+<br><br><br><br>
+<h3>Invite History</h3>
+<br>
+	<div class="limiter">
+		<!-- <div class="container-table100"> -->
+			<div class="wrap-table100">
+				<div class="table100 ver1 m-b-110">
+          {% for table in tables %}
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class="row100 head">
+			            <th class="cell100 column5">{{ titles[loop.index] }}</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+                <tr class="row100 body">
+					          <td class="cell100">{{ table|safe }}</td>
+                  </tr>
+							</tbody>
+						</table>
+					</div>
+          {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block tail%}
+	<script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/popper.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/select2.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/perfect-scrollbar.min.js') }}"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+	</script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+  Login
+{% endblock %}
+
+{% block page_body %}
+<div class="login">
+  <form class="form-signin" method="POST" action="/login">
+    <br><br><br><br>
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <form class="form-signin" action="{{ url_for('simplelogin.login') }}" method="post">
+      <div class="form-group">
+      {{ form.csrf_token }}
+      <!-- {{form.username.label}}{{ form.username }}<br>
+      {{form.password.label}}{{ form.password }}<br> -->
+      <input type="text" name="username" placeholder="User Name" required="required" value="{{ form.username.value }}"/>
+      <input type="password" name="password" placeholder="Password" required="required" value="{{ form.password.value }}"/>
+      {% if next %}
+        <input type="hidden" name="next" value="{{next}}">
+      {% endif %}
+    </form>
+    <input type="submit" class="btn btn-primary btn-block btn-large" value="Send">
+  </form>
+</div>
+{% endblock %}
+
+<div class="login">
+{% block messages %}
+  {{super()}}
+  {%if form.errors %}
+    <ul class="alert alert-danger">
+      {% for field, errors in form.errors.items() %}
+        <li>{{field}} {% for error in errors %}{{ error }}{% endfor %}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% endblock %}
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <ul class="flashes alert">
+    {% for category, message in messages %}
+      <li class="flashes alert alert-{{category}}">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    {% if request.path == url_for('simplelogin.login') %}
+    <ul class="flashes alert alert-primary">
+      <li>Please provide username and password to login</li>
+    </ul>
+    {% endif %}
+  {% endif %}
+  {% endwith %}
+
+</div>
