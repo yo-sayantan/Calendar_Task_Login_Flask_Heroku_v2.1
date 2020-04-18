@@ -14,11 +14,10 @@ import click
 from flask import Flask, jsonify, render_template, request, session
 from flask_simplelogin import SimpleLogin, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.exceptions import HTTPException
 import util
 import sql
 import numpy as np
-import pandas as pd
-from werkzeug.exceptions import HTTPException
 
 
 # [ -- Utils -- ]
