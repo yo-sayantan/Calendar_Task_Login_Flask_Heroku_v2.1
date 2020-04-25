@@ -5,19 +5,21 @@
 ##################################################
 
 
+#!/usr/bin/python3.4
 import json, tempfile
 import os
 from functools import wraps
 import ast
 import pandas as pd
-import click
 from flask import Flask, jsonify, render_template, request, session
 from flask_simplelogin import SimpleLogin, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from werkzeug.exceptions import HTTPException
 import util
 import sql
+import click
 import numpy as np
+import pandas as pd
+from werkzeug.exceptions import HTTPException
 
 
 # [ -- Utils -- ]
@@ -85,7 +87,7 @@ def configure_views(app):
             location = request.form['location']
             email_list=[]
             for i in email:
-                if(i is not ""):
+                if(i != ""):
                     email_list.append({'email':i})
             response = (util.add_event(summary,date,start_time,end_time,email_list,description,location))
             sql.maintain(summary,date,start_time,end_time,email_list,description,location,response)

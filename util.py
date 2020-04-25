@@ -39,8 +39,10 @@ else:
 
 service = build("calendar", "v3", credentials=creds)
 
-def add_event(summary,date,start_time,end_time,email1="",email2="",email3="None",email4="None",email5="None",description=None,location=None):
+def add_event(summary,date,start_time,end_time,email_list,description=None,location=None):
     matches = list(datefinder.find_dates(start_time))
+    # t = email1+", "+email2+", "+email3+", "+email4+", "+email5
+
     if len(matches):
         start = matches[0]
     matches = list(datefinder.find_dates(end_time))
@@ -64,13 +66,8 @@ def add_event(summary,date,start_time,end_time,email1="",email2="",email3="None"
             'timeZone': timezone,
         },
 
-        'attendees': [
-        { 'email':(email1) },
-        { 'email':(email2) },
-        { 'email':(email3) },
-        # { 'email':(email4) },
-        # { 'email':(email5) },
-    ],
+        'attendees': email_list,
+
         'reminders': {
             'useDefault': False,
             'overrides': [
@@ -89,5 +86,5 @@ def add_event(summary,date,start_time,end_time,email1="",email2="",email3="None"
 
 if __name__ =="__main__":
     print("Starting python Flask server...")
-    util.load_saved_artifacts()
+    # util.load_saved_artifacts()
     app.run(debug=True)
