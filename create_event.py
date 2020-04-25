@@ -1,25 +1,17 @@
-##################################################
-## Author: {Sayantan Biswas}
-## Maintainer: {Sayantan Biswas}
-## Email: {sayantanbiswas1002@gmail.com}
-##################################################
 
-
-import json, pickle
-import numpy as np
+import pickle
 import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 import datefinder
 from datetime import datetime, timedelta
-from rfc3339 import rfc3339
-
+# If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 timezone = 'Asia/Kolkata'
 if os.path.exists('token.pickle'):
     with open('token.pickle', 'rb') as token:
-        creds = pickle.load(token)
+            creds = pickle.load(token)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
@@ -38,56 +30,39 @@ else:
         pickle.dump(creds, token)
 
 service = build("calendar", "v3", credentials=creds)
-
-def add_event(summary,date,start_time,end_time,email1="",email2="",email3="None",email4="None",email5="None",description=None,location=None):
-    matches = list(datefinder.find_dates(start_time))
+def create_events(start_time_str, summary, duration=1,attendees=None, description=None, location=None):
+    matches = list(datefinder.find_dates(start_time_str))
     if len(matches):
-        start = matches[0]
-    matches = list(datefinder.find_dates(end_time))
-    if len(matches):
-        end = matches[0]
-
-    start = rfc3339(start)
-    end = rfc3339(end)
+        start_time = matches[0]
+        end_time = start_time + timedelta(hours=duration)
 
     event = {
         'summary': summary,
         'location': location,
         'description': description,
         'start': {
-            'dateTime': start, #_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'dateTime': start_time.strftime("%Y-%m-%dT%H:%M:%S"),
+            'timeZone': timezone,
+        },
+        'end': {
+            'dateTime': end_time.strftime("%Y-%m-%dT%H:%M:%S"),
             'timeZone': timezone,
         },
 
-        'end': {
-            'dateTime': end, #_time.strftime("%Y-%m-%dT%H:%M:%S"),
-            'timeZone': timezone,
-        },
 
         'attendees': [
-        { 'email':(email1) },
-        { 'email':(email2) },
-        { 'email':(email3) },
-        # { 'email':(email4) },
-        # { 'email':(email5) },
+        {'email':attendees },
     ],
         'reminders': {
             'useDefault': False,
             'overrides': [
                 {'method': 'email', 'minutes': 24 * 60},
-                {'method': 'popup', 'minutes': 10},
+                {'method': 'popup', 'minutes': 15},
             ],
         },
     }
-    event = service.events().insert(calendarId='primary', body=event,sendNotifications=True).execute()
-    return('Event created: %s' %(event.get('summary'))+' for %s' %(event.get('description')))
-
-#create_events('6 April 1.00pm', 'Deloitte Start time',0.5,'ekansh03@gmail.com')
+    return service.events().insert(calendarId='primary', body=event,sendNotifications=True).execute()
+create_events('10 April 1.00pm', 'Deloitte Start time',0.5,'sayantanbiswas1002@gmail.com')
 #Recurrence -'recurrence': [
 #    'RRULE:FREQ=WEEKLY;UNTIL=20200615T240000Z',
 #  ],
-
-if __name__ =="__main__":
-    print("Starting python Flask server...")
-    util.load_saved_artifacts()
-    app.run(debug=True)
