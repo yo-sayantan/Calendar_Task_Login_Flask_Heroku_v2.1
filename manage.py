@@ -15,7 +15,7 @@ from flask import Flask, jsonify, render_template, request, session
 from flask_simplelogin import SimpleLogin, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 import util
-import sql
+import sql, sql_ex
 import click
 import numpy as np
 import pandas as pd
@@ -89,6 +89,7 @@ def configure_views(app):
             for i in email:
                 if(i != ""):
                     email_list.append({'email':i})
+
             response = (util.add_event(summary,date,start_time,end_time,email_list,description,location))
             sql.maintain(summary,date,start_time,end_time,email_list,description,location,response)
             return render_template('add_event.html', result_text=response)
@@ -104,7 +105,7 @@ def configure_views(app):
     @login_required(username=['admin'])
     def history():
         if os.path.exists('records.sqlite'):
-            df = sql.extract()
+            df = sql_ex.extract()
             return render_template('history.html', tables=[df.to_html(border="0")], titles=[df.columns.values])
         else:
             return render_template('failed.html')

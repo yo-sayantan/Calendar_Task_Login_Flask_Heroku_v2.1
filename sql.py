@@ -1,6 +1,7 @@
 import sqlalchemy as db
 import pandas as pd
 from datetime import datetime
+from sqlalchemy.sql import text
 
 class DataBase:
     def __init__(self):
@@ -35,44 +36,41 @@ def start():
 
 def maintain(summary,date,start_time,end_time,email_list,description="None",location="None",response="None"):
     ex = start()
+    # start(engine = engine)
     rcd = ex.rcd
     engine = ex.engine
     now = datetime.now()
     query = db.insert(rcd)
+    email_db=[]
+    for i in email_list:
+        if(i != ""):
+            email_db.append(i)
+    email_list_final = str(email_db)
     data = [{
         'Summary':summary,
         'Meeting_Date':date,
         'Start_Time':start_time,
         'End_Time':end_time,
-        'Invitees' : email_list,
+        'Invitees' : email_list_final,
         'Description' : description,
         'Location' : location,
         'Record_Date' : now.strftime("%B %d, %Y"),
         'Record_Time' : now.strftime("%H:%M:%S"),
-        'Response':response,
+        'Response': response,
     }]
+    # data = (summary,date,start_time,end_time,str(email_list),description,location,now.strftime("%B %d, %Y"),now.strftime("%H:%M:%S"),response)
+    # query = "INSERT INTO rcd (Summary,Meeting_Date,Start_Time,End_Time,Invitees,Description,Location,Record_Date,Record_Time,Response) VALUES (data)"
+    # query = text("""INSERT INTO rcd(Summary, Meeting_Date, Start_Time, End_Time, Invitees, Description, Location, Record_Date, Record_Time, Response)
+            # VALUES(:Summary, :Meeting_Date, :Start_Time, :End_Time, :Invitees, :Description, :Location, :Record_Date, :Record_Time, :Response)""")
+
     connection = engine.connect()
     # metadata = db.MetaData()
+    # data = unicode(data)
     ResultProxy = connection.execute(query,data)
+    # for line in data:
+    #     connection.execute(query, **line)
     # status.connection.execute(query,data)
     # ResultProxy = connection.execute(query)
+    connection.invalidate()
+    engine.dispose()
     return
-
-def extract():
-    ex = start()
-    engine = ex.engine
-    # start(engine = engine)
-    # db.create_engine('sqlite:///records.sqlite')
-    connection = engine.connect()
-    metadata = db.MetaData()
-    rcd = db.Table('rcd', metadata, autoload=True, autoload_with=engine)
-    query = db.select([rcd])
-    ResultProxy = connection.execute(query)
-    results = ResultProxy.fetchall()
-    df = pd.DataFrame(results)
-    df.columns = results[0].keys()
-    df1 = pd.DataFrame(df)
-    # df1.columns = df[0].keys()
-    # print(df1)
-    return df1
-# extract()
