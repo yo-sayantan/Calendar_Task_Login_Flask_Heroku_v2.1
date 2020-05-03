@@ -1,10 +1,11 @@
 ##################################################
 ## Author: {Sayantan Biswas}
-## Maintainer: {Sayantan Biswas}
+## Maintainer: {Sayantan Biswa}
 ## Email: {sayantanbiswas1002@gmail.com}
 ##################################################
 
 
+#!/usr/bin/python3.4
 import json, pickle
 import numpy as np
 import os.path
@@ -41,7 +42,6 @@ service = build("calendar", "v3", credentials=creds)
 
 def add_event(summary,date,start_time,end_time,email_list,description=None,location=None):
     matches = list(datefinder.find_dates(start_time))
-    # t = email1+", "+email2+", "+email3+", "+email4+", "+email5
 
     if len(matches):
         start = matches[0]
@@ -78,11 +78,6 @@ def add_event(summary,date,start_time,end_time,email_list,description=None,locat
     }
     event = service.events().insert(calendarId='primary', body=event,sendNotifications=True).execute()
     return('Event created: %s' %(event.get('summary'))+' for %s' %(event.get('description')))
-
-#create_events('6 April 1.00pm', 'Deloitte Start time',0.5,'ekansh03@gmail.com')
-#Recurrence -'recurrence': [
-#    'RRULE:FREQ=WEEKLY;UNTIL=20200615T240000Z',
-#  ],
 
 if __name__ =="__main__":
     print("Starting python Flask server...")

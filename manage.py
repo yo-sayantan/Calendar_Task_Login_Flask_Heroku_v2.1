@@ -55,6 +55,12 @@ def create_app():
     app = Flask(__name__)
     return app
 
+# def load_users(username):
+#     if username.is_authenticated():
+#         user = username.get_id() # return username in get_id()
+#     else:
+#         user = None
+#     return username
 
 def configure_extensions(app):
     SimpleLogin(app, login_checker=validate_login)
@@ -89,9 +95,12 @@ def configure_views(app):
             for i in email:
                 if(i != ""):
                     email_list.append({'email':i})
-
+            email_db=[]
+            for i in email:
+                if(i != ""):
+                    email_db.append((i))
             response = (util.add_event(summary,date,start_time,end_time,email_list,description,location))
-            sql.maintain(summary,date,start_time,end_time,email_list,description,location,response)
+            sql.maintain(summary,date,start_time,end_time,email_db,description,location,response)
             return render_template('add_event.html', result_text=response)
         if request.method == 'GET':
             return render_template('add_event.html')
@@ -101,12 +110,17 @@ def configure_views(app):
     def api():
         return jsonify(data='You are logged in with basic auth')
 
+    @login_required(basic=True)
+
+
     @app.route('/history')
     @login_required(username=['admin'])
     def history():
+        # user = load_users()
+
         if os.path.exists('records.sqlite'):
             df = sql_ex.extract()
-            return render_template('history.html', tables=[df.to_html(border="0")], titles=[df.columns.values])
+            return render_template('history.html', tables=[df.to_html(border="0",justify="match-parent")], titles=[df.columns.values])
         else:
             return render_template('failed.html')
 

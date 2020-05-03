@@ -1,4 +1,11 @@
+##################################################
+## Author: {Sayantan Biswas}
+## Maintainer: {Sayantan Biswa}
+## Email: {sayantanbiswas1002@gmail.com}
+##################################################
 
+
+#!/usr/bin/python3.4
 import pickle
 import os.path
 from googleapiclient.discovery import build
@@ -63,7 +70,3 @@ def create_events(start_time_str, summary, duration=1,attendees=None, descriptio
         },
     }
     return service.events().insert(calendarId='primary', body=event,sendNotifications=True).execute()
-create_events('10 April 1.00pm', 'Deloitte Start time',0.5,'sayantanbiswas1002@gmail.com')
-#Recurrence -'recurrence': [
-#    'RRULE:FREQ=WEEKLY;UNTIL=20200615T240000Z',
-#  ],
