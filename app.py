@@ -69,7 +69,7 @@ def configure_extensions(app):
             json.dump({'username': '', 'password': ''}, json_file)
 
 def configure_views(app):
-    @app.route('/')
+    @app.route('/home')
     def index():
         return render_template('index.html')
 
