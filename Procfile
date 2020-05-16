@@ -1,1 +1,1 @@
-web: gunicorn -w 4 calendar.wsgi:app
+web: gunicorn -w 4 app.wsgi:app
