@@ -1,1 +1,1 @@
-web: gunicorn -workers=3 flask_app:app
+gunicorn -w 4 app.wsgi:app

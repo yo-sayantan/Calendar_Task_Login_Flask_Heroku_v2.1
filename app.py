@@ -179,7 +179,7 @@ def adduser(app, username, password):
 @click.option('--host', default=None)
 @click.option('--port', default=None)
 @with_app
-def main(app=None, reloader=None, debug=None, host=None, port=None):
+def runserver(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
     debug = debug or app.config.get('DEBUG', False)
     reloader = reloader or app.config.get('RELOADER', True)
