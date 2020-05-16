@@ -157,8 +157,8 @@ def with_app(f):
 
 
 @click.group()
-def main():
-    """Flask Calendar Task Scheduling App"""
+# def main():
+#     """Flask Calendar Task Scheduling App"""
 
 
 @main.command()
@@ -179,7 +179,7 @@ def adduser(app, username, password):
 @click.option('--host', default=None)
 @click.option('--port', default=None)
 @with_app
-def runserver(app=None, reloader=None, debug=None, host=None, port=None):
+def main(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
     debug = debug or app.config.get('DEBUG', False)
     reloader = reloader or app.config.get('RELOADER', True)
