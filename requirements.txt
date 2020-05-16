@@ -15,7 +15,7 @@ google-auth-httplib2==0.0.3
 google-auth-oauthlib==0.4.1
 google-pasta==0.1.8
 googleapis-common-protos==1.51.0
-gunicorn==19.3.0
+gunicorn==19.5.0
 headerparser==0.4.0
 html5lib==1.0.1
 httplib2==0.11.3
