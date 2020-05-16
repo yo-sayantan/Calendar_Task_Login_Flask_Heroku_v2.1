@@ -179,7 +179,7 @@ def adduser(app, username, password):
 @click.option('--host', default=None)
 @click.option('--port', default=None)
 @with_app
-def runserver(app=None, reloader=None, debug=None, host=None, port=None):
+def main(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
     debug = debug or app.config.get('DEBUG', False)
     reloader = reloader or app.config.get('RELOADER', True)
@@ -196,5 +196,5 @@ def runserver(app=None, reloader=None, debug=None, host=None, port=None):
 # [--- Entry point ---]
 
 if __name__ == "__main__":
-    """python manage.py to see help"""
+    """python app.py to see help"""
     main()
