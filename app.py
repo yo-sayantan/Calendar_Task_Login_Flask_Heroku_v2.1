@@ -156,7 +156,7 @@ def with_app(f):
     return decorator
 
 
-@click.group()
+
 # def main():
 #     """Flask Calendar Task Scheduling App"""
 
@@ -174,6 +174,7 @@ def adduser(app, username, password):
 
 
 @main.command()
+@click.group()
 @click.option('--reloader/--no-reloader', default=None)
 @click.option('--debug/--no-debug', default=None)
 @click.option('--host', default=None)
