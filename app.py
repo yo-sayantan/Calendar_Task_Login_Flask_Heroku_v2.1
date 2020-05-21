@@ -68,10 +68,11 @@ def configure_extensions(app):
         with open('users.json', 'a') as json_file:
             json.dump({'username': '', 'password': ''}, json_file)
 
+# @app.route('/')
+def index():
+    return redirect(url_for('home'))
+
 def configure_views(app):
-    @app.route('/')
-    def index():
-        return redirect(url_for('home'))
 
     @app.route('/home')
     def home():
