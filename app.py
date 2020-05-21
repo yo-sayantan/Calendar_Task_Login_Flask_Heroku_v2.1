@@ -11,7 +11,7 @@ import os
 from functools import wraps
 import ast
 import pandas as pd
-from flask import Flask, jsonify, render_template, request, session
+from flask import Flask, jsonify, render_template, request, session, url_for, redirect
 from flask_simplelogin import SimpleLogin, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 import util
@@ -71,7 +71,11 @@ def configure_extensions(app):
 def configure_views(app):
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return redirect(url_for('home'))
+
+    @app.route('/home')
+    def home():
+        return render_template('home.html')
 
     @app.route('/add_event', methods=['GET', 'POST'])
     @login_required()
