@@ -69,7 +69,7 @@ def configure_extensions(app):
             json.dump({'username': '', 'password': ''}, json_file)
 
 def configure_views(app):
-    @app.route('/home')
+    @app.route('/')
     def index():
         return render_template('index.html')
 
@@ -111,13 +111,10 @@ def configure_views(app):
         return jsonify(data='You are logged in with basic auth')
 
     @login_required(basic=True)
-
-
     @app.route('/history')
     @login_required(username=['admin'])
     def history():
         # user = load_users()
-
         if os.path.exists('records.sqlite'):
             df = sql_ex.extract()
             return render_template('history.html', tables=[df.to_html(border="0",justify="match-parent")], titles=[df.columns.values])
@@ -156,10 +153,10 @@ def with_app(f):
     return decorator
 
 
-
-# def main():
-#     """Flask Calendar Task Scheduling App"""
-
+@click.group()
+def main():
+    """Flask Calendar Task Scheduling App"""
+    index()
 
 @main.command()
 @click.option('--username', required=True, prompt=True)
@@ -174,7 +171,6 @@ def adduser(app, username, password):
 
 
 @main.command()
-@click.group()
 @click.option('--reloader/--no-reloader', default=None)
 @click.option('--debug/--no-debug', default=None)
 @click.option('--host', default=None)
