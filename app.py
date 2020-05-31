@@ -69,10 +69,14 @@ def configure_extensions(app):
             json.dump({'username': '', 'password': ''}, json_file)
 
 # @app.route('/')
-def index():
-    return redirect(url_for('home'))
+# def index():
+#     return redirect(url_for('home'))
 
 def configure_views(app):
+
+    @app.route('/')
+    def index():
+        return redirect(url_for('home'))
 
     @app.route('/home')
     def home():
@@ -161,7 +165,7 @@ def with_app(f):
 @click.group()
 def main():
     """Flask Calendar Task Scheduling App"""
-    index()
+    home()
 
 @main.command()
 @click.option('--username', required=True, prompt=True)
@@ -198,5 +202,4 @@ def main(app=None, reloader=None, debug=None, host=None, port=None):
 # [--- Entry point ---]
 
 if __name__ == "__main__":
-    """python app.py to see help"""
     main()
