@@ -105,7 +105,7 @@ def configure_views(app):
                 if(i != ""):
                     email_db.append((i))
             response = (util.add_event(summary,date,start_time,end_time,email_list,description,location))
-            sql.maintain(summary,date,start_time,end_time,email_db,description,location,response)
+            # sql.maintain(summary,date,start_time,end_time,email_db,description,location,response)
             return render_template('add_event.html', result_text=response)
         if request.method == 'GET':
             return render_template('add_event.html')
