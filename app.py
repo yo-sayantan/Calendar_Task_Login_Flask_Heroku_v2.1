@@ -76,11 +76,12 @@ def configure_views(app):
 
     @app.route('/')
     def index():
-        return redirect(url_for('home'))
+        # return redirect(url_for('home'))
+        return render_template('home.html')
 
     @app.route('/home/')
+    return render_template('home.html')
     def home():
-        return render_template('home.html')
 
     @app.route('/add_event/', methods=['GET', 'POST'])
     @login_required()
