@@ -78,11 +78,11 @@ def configure_views(app):
     def index():
         return redirect(url_for('home'))
 
-    @app.route('/home')
+    @app.route('/home/')
     def home():
         return render_template('home.html')
 
-    @app.route('/add_event', methods=['GET', 'POST'])
+    @app.route('/add_event/', methods=['GET', 'POST'])
     @login_required()
     def add_event():
         email = []
@@ -114,13 +114,13 @@ def configure_views(app):
         if request.method == 'GET':
             return render_template('add_event.html')
 
-    @app.route('/api', methods=['POST'])
+    @app.route('/api/', methods=['POST'])
     @login_required(basic=True)
     def api():
         return jsonify(data='You are logged in with basic auth')
 
     @login_required(basic=True)
-    @app.route('/history')
+    @app.route('/history/')
     @login_required(username=['admin'])
     def history():
         # user = load_users()
@@ -170,7 +170,7 @@ def with_app(f):
 @click.group()
 def main():
     """Flask Calendar Task Scheduling App"""
-    home()
+    index()
 
 @main.command()
 @click.option('--username', required=True, prompt=True)
@@ -208,3 +208,4 @@ def main(app=None, reloader=None, debug=None, host=None, port=None):
 
 if __name__ == "__main__":
     main()
+    # app.run()
