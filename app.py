@@ -77,8 +77,8 @@ def configure_views(app):
 
     @app.route('/')
     def index():
-        # return redirect(url_for('home'))
-        return render_template('home.html')
+        return redirect(url_for('home'))
+        # return render_template('home.html')
 
     @app.route('/home/')
     def home():
