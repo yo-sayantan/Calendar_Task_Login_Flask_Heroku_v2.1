@@ -187,16 +187,16 @@ def adduser(app, username, password):
 @with_app
 def main(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
-    debug = debug or app.config.get('DEBUG', False)
-    reloader = reloader or app.config.get('RELOADER', True)
-    host = host or app.config.get('HOST', '127.0.0.1')
-    port = port or app.config.get('PORT', 5000)
-    app.run(
-        use_reloader=reloader,
-        debug=debug,
-        host=host,
-        port=port
-    )
+    #debug = debug or app.config.get('DEBUG', False)
+    #reloader = reloader or app.config.get('RELOADER', True)
+    #host = host or app.config.get('HOST', '127.0.0.1')
+    #port = port or app.config.get('PORT', 5000)
+    app.run()
+        #use_reloader=reloader,
+        #debug=debug,
+        #host=host,
+        #port=port
+    #)
 
 
 # [--- Entry point ---]
