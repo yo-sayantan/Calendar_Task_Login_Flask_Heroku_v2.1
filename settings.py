@@ -1,8 +1,8 @@
 import os
 
-SECRET_KEY = 'secret-here'
+SECRET_KEY = 'fe96237b-852b-4685-a814-f02545f9ab1a'
 SIMPLELOGIN_BLUEPRINT = os.getenv('SIMPLELOGIN_BLUEPRINT')
 SIMPLELOGIN_LOGIN_URL = os.getenv('SIMPLELOGIN_LOGIN_URL')
 SIMPLELOGIN_LOGOUT_URL = os.getenv('SIMPLELOGIN_LOGOUT_URL')
 SIMPLELOGIN_HOME_URL = os.getenv('SIMPLELOGIN_HOME_URL')
-# ROOT_URLCONF = 'Calendar_Task_Login.Calendar_Task_Login.urls'
+ROOT_URLCONF = 'Calendar_Task_Login.Calendar_Task_Login.urls'

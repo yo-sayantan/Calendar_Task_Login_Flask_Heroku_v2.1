@@ -53,6 +53,7 @@ def create_user(**data):
 
 def create_app():
     app = Flask(__name__)
+    app.config["SECRET_KEY"] = "2bb46888-db45-45bc-92b7-39bf49022562"
     return app
 
 # def load_users(username):
@@ -80,8 +81,9 @@ def configure_views(app):
         return render_template('home.html')
 
     @app.route('/home/')
-    return render_template('home.html')
     def home():
+        return render_template('home.html')
+
 
     @app.route('/add_event/', methods=['GET', 'POST'])
     @login_required()
@@ -191,6 +193,8 @@ def adduser(app, username, password):
 @click.option('--host', default=None)
 @click.option('--port', default=None)
 @with_app
+# if __name__ == "__main__":
+#     app.run()
 def main(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
     debug = debug or app.config.get('DEBUG', False)
