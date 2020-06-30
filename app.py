@@ -56,12 +56,12 @@ def create_app():
     app.config["SECRET_KEY"] = "2bb46888-db45-45bc-92b7-39bf49022562"
     return app
 
-# def load_users(username):
-#     if username.is_authenticated():
-#         user = username.get_id() # return username in get_id()
-#     else:
-#         user = None
-#     return username
+def load_users(username):
+    if username.is_authenticated():
+        user = username.get_id() # return username in get_id()
+    else:
+        user = None
+    return username
 
 def configure_extensions(app):
     SimpleLogin(app, login_checker=validate_login)
@@ -86,7 +86,7 @@ def configure_views(app):
 
 
     @app.route('/add_event/', methods=['GET', 'POST'])
-    @login_required()
+    @login_required(basic=True)
     def add_event():
         email = []
         if request.method == 'POST':
@@ -193,19 +193,17 @@ def adduser(app, username, password):
 @click.option('--host', default=None)
 @click.option('--port', default=None)
 @with_app
-# if __name__ == "__main__":
-#     app.run()
 def main(app=None, reloader=None, debug=None, host=None, port=None):
     """Run the Flask development server i.e. app.run()"""
     debug = debug or app.config.get('DEBUG', False)
     reloader = reloader or app.config.get('RELOADER', True)
-    #host = host or app.config.get('HOST', '127.0.0.1')
-    #port = port or app.config.get('PORT', 5000)
+    host = host or app.config.get('HOST', '127.0.0.1')
+    port = port or app.config.get('PORT', 5000)
     app.run(
         use_reloader=reloader,
         debug=debug,
-        #host=host,
-        #port=port
+        host=host,
+        port=port
     )
 
 
