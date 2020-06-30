@@ -68,6 +68,7 @@ def configure_extensions(app):
     if not os.path.exists('users.json'):
         with open('users.json', 'a') as json_file:
             json.dump({'username': '', 'password': ''}, json_file)
+            return
 
 # @app.route('/')
 # def index():
@@ -173,7 +174,7 @@ def with_app(f):
 @click.group()
 def main():
     """Flask Calendar Task Scheduling App"""
-    index()
+    home()
 
 @main.command()
 @click.option('--username', required=True, prompt=True)
