@@ -37,7 +37,7 @@ python-dateutil==2.7.3
 python-debian==0.1.36
 python-engineio==3.12.1
 python-socketio==4.5.1
-PyYAML==5.1.2
+PyYAML==5.4
 regex==2020.1.8
 reportlab==3.5.23
 requests==2.22.0
